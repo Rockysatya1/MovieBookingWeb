@@ -1,0 +1,48 @@
+<div class="tickets-container">
+  <div class="header-section">
+    <h1>My Bookings</h1>
+    <p>Manage and view your movie tickets</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loader-container">
+    <div class="spinner"></div>
+    <p>Fetching your tickets...</p>
+  </div>
+
+  <div *ngIf="!isLoading && (tickets.length === 0 || errorMessage)" class="empty-state">
+    <div class="icon">🎟️</div>
+    <h3>{{ errorMessage || 'No tickets found!' }}</h3>
+    <button routerLink="/">Browse Movies</button>
+  </div>
+
+  <div *ngIf="!isLoading && tickets.length > 0" class="tickets-grid">
+    <div class="ticket-card" *ngFor="let ticket of tickets">
+      <div class="ticket-header">
+        <span class="ticket-id">#{{ ticket.ticketId }}</span>
+        <!-- <span class="booking-date">{{ ticket.bookingDate | date:'mediumDate' }}</span> -->
+      </div>
+      
+      <div class="ticket-body">
+        <h2 class="movie-title">{{ ticket.movieName }}</h2>
+        <!-- <div class="info-row">
+          <span class="label">Theater:</span>
+          <span class="value">{{ ticket.theaterName }}</span>
+        </div> -->
+        <!-- <div class="info-row">
+          <span class="label">Tickets:</span>
+          <span class="value">{{ ticket.numberOfTickets }} Person(s)</span>
+        </div> -->
+        <div class="seats-row">
+          <span class="label">Seats:</span>
+          <div class="seat-badges">
+            <span class="seat-tag" >{{ ticket.seatNumber }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket-footer">
+        <button class="btn-print" onclick="window.print()">Print Ticket</button>
+      </div>
+    </div>
+  </div>
+</div>

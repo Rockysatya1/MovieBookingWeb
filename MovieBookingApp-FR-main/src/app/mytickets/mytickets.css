@@ -1,0 +1,101 @@
+.tickets-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.tickets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+/* Glassmorphism Ticket Card */
+.ticket-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 0.5rem solid rgba(39, 13, 42, 0.329);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.ticket-card:hover {
+  transform: translateY(-5px);
+  border-color: #09b2e5; /* Netflix Red accent */
+}
+
+.ticket-header {
+  padding: 1rem;
+  background: rgba(229, 9, 20, 0.1);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.ticket-body {
+  padding: 1.5rem;
+}
+
+.movie-title {
+  color: #177f38;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+
+.label {
+  font-weight: 600;
+  color: #1f1919;
+  font-size: 1rem;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: #ddd;
+}
+
+.seat-tag {
+  background: #e50914;
+  color: rgb(14, 8, 48);
+  padding: 2px 8px;
+  border-radius: 5px;
+  margin-right: 5px;
+  font-size: 2rem;
+}
+
+.ticket-footer {
+  padding: 1rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.btn-print {
+  background: transparent;
+  border: 1px solid #e50914;
+  color: #e50914;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-print:hover {
+  background: #e50914;
+  color: white;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .tickets-container { padding: 1rem; }
+  .tickets-grid { grid-template-columns: 1fr; }
+  .movie-title { font-size: 1.2rem; }
+}

@@ -1,0 +1,28 @@
+<div class="login-container">
+    <div class="login-card">
+        <h2>Welcome Back</h2>
+        <p>Please enter your details to sign in.</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="input-group">
+                <label for="loginId">Login ID</label>
+                <input type="text" id="loginId" formControlName="loginId" placeholder="Enter your ID"
+                    [class.error]="isInvalid('loginId')" />
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" formControlName="password" placeholder="••••••••"
+                    [class.error]="isInvalid('password')" />
+            </div>
+
+            <button type="submit" [disabled]="loginForm.invalid || isSubmitting" class="login-btn">
+                {{ isSubmitting ? 'Logging in...' : 'Login' }}
+            </button>
+
+            <div *ngIf="errorMessage" class="error-status-message">
+                {{ errorMessage }}
+            </div>
+        </form>
+    </div>
+</div>

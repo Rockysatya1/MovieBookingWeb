@@ -1,0 +1,66 @@
+/* Reusing the container/card logic from Login */
+.reg-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.reg-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+h2 { color: #333; margin-bottom: 0.5rem; text-align: center; }
+p { color: #666; margin-bottom: 1.5rem; text-align: center; font-size: 0.9rem; }
+
+.input-group { margin-bottom: 1.2rem; }
+
+label { display: block; margin-bottom: 5px; font-weight: 600; color: #444; font-size: 0.85rem; }
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+input:focus { outline: none; border-color: #764ba2; }
+input.error { border-color: #ff4d4d; }
+
+.hint { font-size: 0.75rem; color: #888; display: block; margin-top: 4px; }
+.error-text { color: #ff4d4d; font-size: 0.8rem; margin-top: 5px; }
+.success-text { color: #2ecc71; font-size: 0.8rem; margin-top: 5px; }
+
+.reg-btn {
+  width: 100%;
+  padding: 12px;
+  background: #764ba2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.reg-btn:disabled { background: #ccc; }
+
+/* Responsive Grid */
+@media (max-width: 480px) {
+  .form-grid { grid-template-columns: 1fr; }
+}

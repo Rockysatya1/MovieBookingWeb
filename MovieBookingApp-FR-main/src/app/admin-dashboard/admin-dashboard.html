@@ -1,0 +1,85 @@
+<div class="admin-container">
+  <div class="glass-card main-panel">
+    <h1 class="admin-title">Admin Control Panel</h1>
+    
+    <div class="action-grid">
+      <button class="action-card" [class.active]="viewMode === 'add'" (click)="setMode('add')">
+        <span class="icon">➕</span>
+        <h3>Add Movie</h3>
+      </button>
+
+      <button class="action-card" [class.active]="viewMode === 'delete'" (click)="setMode('delete')">
+        <span class="icon">🗑️</span>
+        <h3>Delete Movie</h3>
+      </button>
+
+      <button class="action-card" [class.active]="viewMode === 'update'" (click)="setMode('update')">
+        <span class="icon">🔁</span>
+        <h3>Update Status</h3>
+      </button>
+    </div>
+
+    <div class="update-panel form-section" *ngIf="viewMode === 'update'">
+      <h2>Toggle Movie Status</h2>
+      <div class="input-group">
+        <label>Select Movie</label>
+        <select [(ngModel)]="selectedMovieId">
+          <option [ngValue]="null">-- Choose a movie --</option>
+          <option *ngFor="let m of movies" [value]="m.movieId">
+            {{ m.movieName }} (ID: {{ m.movieId }}) — {{ m.ticketStatus }}
+          </option>
+        </select>
+      </div>
+
+      <button class="submit-btn update" (click)="onUpdateMovieStatus(selectedMovieId)"
+              [disabled]="!selectedMovieId || isLoading"> 
+        {{ isLoading ? 'Processing...' : 'Switch Status' }}
+      </button>
+    </div>
+
+    <hr class="divider" *ngIf="viewMode !== 'none'">
+
+    <div class="form-section" *ngIf="viewMode === 'add'">
+      <h2>Register New Movie</h2>
+      <div class="input-group">
+        <label>Movie Name</label>
+        <input type="text" [(ngModel)]="newMovie.movieName" placeholder="Enter title...">
+      </div>
+      
+      <div class="input-row">
+        <div class="input-group">
+          <label>Total Capacity</label>
+          <input type="number" [(ngModel)]="newMovie.totalTickets">
+        </div>
+        <div class="input-group">
+          <label>Initial Status</label>
+          <select [(ngModel)]="newMovie.ticketStatus">
+            <option value="BOOK_ASAP">BOOK ASAP</option>
+            <option value="SOLD_OUT">SOLD OUT</option>
+          </select>
+        </div>
+      </div>
+      
+      <button class="submit-btn add" (click)="onAddMovie()" [disabled]="isLoading">
+        {{ isLoading ? 'Processing...' : 'Save Movie' }}
+      </button>
+    </div>
+
+    <div class="form-section" *ngIf="viewMode === 'delete'">
+      <h2>Remove Movie from Listing</h2>
+      <div class="input-group">
+        <label>Select Movie</label>
+        <select [(ngModel)]="selectedMovieId">
+          <option [ngValue]="null">-- Choose a movie to delete --</option>
+          <option *ngFor="let m of movies" [value]="m.movieId">
+            {{ m.movieName }} (ID: {{ m.movieId }})
+          </option>
+        </select>
+      </div>
+      
+      <button class="submit-btn delete" (click)="onDeleteMovie()" [disabled]="!selectedMovieId || isLoading">
+        {{ isLoading ? 'Deleting...' : 'Confirm Deletion' }}
+      </button>
+    </div>
+  </div>
+</div>

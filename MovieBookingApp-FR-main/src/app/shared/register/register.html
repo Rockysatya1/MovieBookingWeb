@@ -1,0 +1,76 @@
+<div class="reg-container">
+    <div class="reg-card">
+        <h2>Create Account</h2>
+        <p>Join us today! Please fill in your details.</p>
+
+        <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>First Name</label>
+                    <input type="text" formControlName="firstName" placeholder="John"
+                        [class.error]="isInvalid('firstName')">
+                </div>
+                <div class="input-group">
+                    <label>Last Name</label>
+                    <input type="text" formControlName="lastName" placeholder="Doe"
+                        [class.error]="isInvalid('lastName')">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Email ID</label>
+                <input type="email" formControlName="emailId" placeholder="john@example.com"
+                    [class.error]="isInvalid('emailId')">
+            </div>
+
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>Login ID</label>
+                    <input type="text" formControlName="loginId" placeholder="johndoe123"
+                        [class.error]="isInvalid('loginId')">
+                </div>
+                <div class="input-group">
+                    <label>Contact No</label>
+                    <input type="text" formControlName="contactNo" placeholder="1234567890"
+                        [class.error]="isInvalid('contactNo')">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" formControlName="password" placeholder="••••••••"
+                    [class.error]="isInvalid('password')">
+                <small class="hint">Min 8 chars, at least one letter and one number.</small>
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" formControlName="confirmPassword" placeholder="••••••••"
+                    [class.error]="isInvalid('confirmPassword')">
+
+                <div *ngIf="regForm.hasError('passwordMismatch') && regForm.get('confirmPassword')?.touched"
+                    class="error-text">
+                    Passwords do not match!
+                </div>
+                <div *ngIf="!regForm.hasError('passwordMismatch') && regForm.get('confirmPassword')?.value && regForm.get('confirmPassword')?.touched"
+                    class="success-text">
+                    Passwords match.
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="regForm.invalid || isSubmitting" class="reg-btn">
+                {{ isSubmitting ? 'Processing...' : 'Register' }}
+            </button>
+
+            <div *ngIf="statusType !== 'none'" class="status-container" [ngClass]="statusType">
+                <div class="status-icon">
+                    <span *ngIf="statusType === 'success'">✔</span>
+                    <span *ngIf="statusType === 'error'">✖</span>
+                </div>
+                <div class="status-text">
+                    {{ statusMessage }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

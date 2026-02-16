@@ -1,0 +1,55 @@
+<div class="page-container">
+  <div class="content-wrapper">
+    <h2 class="title">🎥 Now Showing</h2>
+
+    <div class="search-area">
+      <div class="search-box">
+        <div class="input-wrapper">
+          <input type="text" placeholder="Search movies..." [value]="searchText" (input)="updateSearch($event)"
+            (keyup.enter)="onSearch()" />
+          <button *ngIf="searchText" class="clear-btn" (click)="clearSearch()">
+            ✕
+          </button>
+        </div>
+        <button class="search-btn" (click)="onSearch()">Search</button>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!movies; else movieList">
+      <div class="loader-container" style="display:flex;align-items:center;justify-content:center;min-height:240px;"
+        aria-busy="true" aria-label="Loading movies">
+        <!-- SVG spinner -->
+        <svg width="64" height="64" viewBox="0 0 50 50" role="img" aria-hidden="false">
+          <circle cx="25" cy="25" r="20" stroke="#e0e0e0" stroke-width="5" fill="none"></circle>
+          <path fill="#1976d2" d="M25 5a20 20 0 1 0 0 40a2 2 0 0 1 0-4a16 16 0 1 1 0-32z">
+            <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25"
+              dur="1s" repeatCount="indefinite" />
+          </path>
+        </svg>
+      </div>
+    </ng-container>
+
+    <ng-template #movieList>
+      <div class="movie-grid">
+        <div class="movie-card" *ngFor="let movie of movies">
+          <div class="card-header">
+            <h3>{{ movie.movieName }}</h3>
+          </div>
+
+          <div class="card-body">
+            <p class="tickets">🎟 Available: <strong>{{ movie.ticketStatus==='SOLD_OUT' ? 0 : movie.totalTickets
+                }}</strong></p>
+            <p [class]="'status-pill ' + (movie.ticketStatus).replace(' ', '-')">
+              <span *ngIf="movie.ticketStatus === 'SOLD_OUT'" style="color: red; font-weight: bold;">SOLD OUT</span>
+              <span *ngIf="movie.ticketStatus !== 'SOLD_OUT'">BOOK ASAP</span>
+            </p>
+          </div>
+
+          <button class="book-btn" [disabled]="movie.ticketStatus === 'SOLD_OUT'" (click)="bookMovie(movie.movieId)">
+            {{ movie.ticketStatus === 'SOLD_OUT' ? 'Sold Out' : 'Book Now' }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

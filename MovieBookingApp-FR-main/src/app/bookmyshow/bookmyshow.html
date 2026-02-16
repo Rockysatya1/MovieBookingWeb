@@ -1,0 +1,58 @@
+<div class="booking-page">
+  <div class="booking-container" *ngIf="movieData; else loader">
+    
+    <div class="movie-header">
+      <button class="back-btn" routerLink="/home">←</button>
+      <div class="title-wrap">
+        <h1>{{ movieData.movieName }}</h1>
+        <p>Choose your preferred seats for the show</p>
+      </div>
+    </div>
+
+    <div class="stage-container">
+      <div class="screen-glow"></div>
+      <div class="screen"></div>
+      <p class="screen-text">All eyes this way</p>
+    </div>
+
+    <div class="seat-layout">
+      <div class="seat-grid">
+        <div 
+          *ngFor="let seat of movieData.originalSeatNumbers" 
+          class="seat-item"
+          [ngClass]="{
+            'booked': isBooked(seat),
+            'selected': isSelected(seat),
+            'available': !isBooked(seat) && !isSelected(seat)
+          }"
+          (click)="toggleSeat(seat)"
+        >
+          <span class="seat-label">{{ seat }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend-bar">
+      <div class="legend-item"><span class="dot available"></span> Available</div>
+      <div class="legend-item"><span class="dot selected"></span> Selected</div>
+      <div class="legend-item"><span class="dot booked"></span> Occupied</div>
+    </div>
+
+    <div class="checkout-bar" *ngIf="selectedSeats.length > 0">
+      <div class="selection-info">
+        <span class="count">{{ selectedSeats.length }} Tickets</span>
+        <span class="seats">{{ selectedSeats.join(', ') }}</span>
+      </div>
+      <button class="pay-btn" [disabled]="isSubmitting" (click)="confirmBooking()">
+        {{ isSubmitting ? 'Processing...' : 'Book Tickets' }}
+      </button>
+    </div>
+  </div>
+
+  <ng-template #loader>
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Arranging the seats for you...</p>
+    </div>
+  </ng-template>
+</div>
